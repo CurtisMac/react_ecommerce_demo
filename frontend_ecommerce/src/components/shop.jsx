@@ -1,43 +1,68 @@
 import React, { Component } from 'react'
 import { Switch, Link, Route } from 'react-router-dom'
 import axios from 'axios'
-import Hats from './products/hats'
-import Shoes from './products/shoes'
+import ProductList from './products/ProductList'
+import Cart from './Cart'
 
 class Shop extends Component {
     constructor() {
         super()
         this.state = {
             products: [{
-                name: 'High Top Sneaker',
-                price: 15,
-                picture: './../public/imgs/shoe3.png',
-                type: 'shoe'
+                name: 'Beans',
+                price: 2,
+                picture: '/images/beans.jpg',
+                type: 'veg'
             }, {
-                name: 'Leather Boot',
-                price: 80,
-                picture: './../public/imgs/shoe3.png',
-                type: 'shoe'
-            }, {
-                name: 'Sandal',
-                price: 12,
-                picture: './../public/imgs/shoe3.png',
-                type: 'shoe'
-            }, {
-                name: 'Ball cap',
+                name: 'Beer',
                 price: 8,
-                picture: './../public/imgs/shoe3.png',
-                type: 'hat'
+                picture: '/images/beer.jpg',
+                type: 'veg'
             }, {
-                name: 'Top hat',
-                price: 75,
-                picture: './../public/imgs/hat3.png',
-                type: 'hat'
+                name: 'Corn',
+                price: 1,
+                picture: '/images/corn.jpg',
+                type: 'veg'
             }, {
-                name: 'Posh hat',
-                price: 105,
-                picture: './../public/imgs/hat3.png',
-                type: 'hat'
+                name: 'Pickles',
+                price: 4,
+                picture: '/images/pickles.jpeg',
+                type: 'veg'
+            }, {
+                name: 'Chips',
+                price: 3,
+                picture: '/images/chips.jpg',
+                type: 'veg'
+            }, {
+                name: 'Spam',
+                price: 2,
+                picture: '/images/spam.jpg',
+                type: 'meat'
+            },{
+                name: 'Bacon',
+                price: 2,
+                picture: '/images/bacon.jpg',
+                type: 'meat'
+            },{
+                name: 'Ham',
+                price: 8,
+                picture: '/images/ham.jpg',
+                type: 'meat'
+            }, {
+                name: 'Sardines',
+                price: 8,
+                picture: '/images/sardines.jpg',
+                type: 'meat'
+            }, {
+                name: 'C-Dog',
+                price: 8,
+                picture: '/images/corn_dog.jpg',
+                type: 'meat'
+            }, {
+                name: 'Tuna',
+                price: 8,
+                picture: '/images/tuna.jpg',
+                type: 'meat'
             },],
             cart: []
         }
@@ -70,30 +95,33 @@ class Shop extends Component {
     }
 
     render() {
-        const shoes = this.state.products.filter((product) => {
-            return product.type === 'shoe'
+        const meats = this.state.products.filter((product) => {
+            return product.type === 'meat'
         })
 
-        const hats = this.state.products.filter((product) => {
-            return product.type === 'hat'
+        const veg = this.state.products.filter((product) => {
+            return product.type === 'veg'
         })
-
-        const cart = this.state.cart.map((product, i) => { return <li key={i}>{product.name}</li> })
 
         return (
-            <div>
-                <h1>Shop</h1>
-                <h3>{this.props.username}</h3>
-                <h2>Cart</h2>
-                <ul>{cart}</ul>
+            <div className='container'>
                 <nav>
-                    <Link to={this.props.match.url + '/shoes'}>Check out our shoes</Link>
-                    <Link to={this.props.match.url + '/hats'}>Check out our hats</Link>
+                    <ul className='storeNav'>
+                        <li><Link className='button' to={this.props.match.url + '/meats'}>View Meats</Link></li>
+                        <li><Link className='button' to={this.props.match.url + '/veg'}>View Veggies</Link></li>
+                    </ul>
                 </nav>
-                <Switch>
-                    <Route path={this.props.match.url + '/shoes'} render={() => <Shoes shoes={shoes} toCart={this.toCart} />} />
-                    <Route path={this.props.match.url + '/hats'} render={() => <Hats hats={hats} toCart={this.toCart} />} />
-                </Switch>
+                <div className='row'>
+                    <div className='three columns'>
+                        <Cart cart={this.state.cart} />
+                    </div>
+                    <div className='nine columns'>
+                        <Switch>
+                            <Route path={this.props.match.url + '/meats'} render={() => <ProductList item={meats} toCart={this.toCart} />} />
+                            <Route path={this.props.match.url + '/veg'} render={() => <ProductList item={veg} toCart={this.toCart} />} />
+                        </Switch>
+                    </div>
+                </div>
             </div>
         )
     }

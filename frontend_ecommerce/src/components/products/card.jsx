@@ -1,15 +1,27 @@
-import React, {Component} from 'react'
+import React from 'react'
+import IconButton from 'material-ui/IconButton';
+import { Card, CardActions, CardHeader, CardMedia} from 'material-ui/Card'
 
-class Card extends Component {
-    render() {
-        return (
-            <li>
-                {this.props.product.name}, 
-                {this.props.product.price},
-                <button type='button' onClick={()=>{this.props.toCart(this.props.product)}}>Add to cart</button>
-            </li>
-        )
-    }
+function MyCard(props) {
+    return (
+        <div className='one-half column card'>
+            <Card>
+                <CardHeader
+                    title={props.product.name}
+                    subtitle={`$ ${props.product.price}`}
+                />
+                <CardMedia>
+                    <img src={props.product.picture} alt={props.product.name} />
+                </CardMedia>
+                <CardActions>
+                    <IconButton 
+                        iconClassName="material-icons md-18" 
+                        onClick={() => { props.toCart(props.product) }}
+                        >shopping_cart
+                    </IconButton>
+                </CardActions>
+            </Card>
+        </div>
+    )
 }
-
-export default Card
+export default MyCard

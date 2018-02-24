@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+.container {
+    max-width: 1140px;
+}
+
+.button {
+    background-color: yellow;
+    color: blue;
+}
+
+// Header styles
+.header {
+    background-color: red;
+    padding: 10px 20px;
+    color: yellow;
+}
+
+.nav {
+    background-color: blue;
+
+    a {
+        text-decoration: none;
+        margin-left: 10px;
+        font-size: 2rem;
+        color: yellow;
+    }
+}
+
+// Home styles
+.home {
+    text-align: center;
+    margin-top: 50px;
+}
+
+//Card styles
+.card {
+    max-width: 200px;
+    margin: 1%;
+    
+}
+
+.column:first-child{
+    margin-left: 1%;
+}
+
+//Store Styles
+.storeNav {
+    list-style: none;
+    text-align: center;
+    margin-top: 15px;
+
+    li {
+        display: inline;
+        margin: 10px;
+    }
+}

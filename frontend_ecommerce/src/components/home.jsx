@@ -1,22 +1,28 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
-    validateName = () => {
-        let name = this.name.value
-        if (name === '') {
-            return
-        } else { this.props.addUsername(name) }
-    }
-
     render() {
         return (
-            <div>
-                <h1>Home</h1>
-                <div>
-                    Enter your name:
-                    <input type='text' ref={(input) => { this.name = input }}></input>
-                    <button type='button' onClick={this.validateName}>Submit</button>
-                </div>
+            <div className='home'>
+                <h1>Welcome to our store!</h1>
+                <form>
+                    <input
+                        type='text'
+                        id='inputbox'
+                        ref={(input) => { this.name = input }}
+                        placeholder='Enter your Username'>
+                    </input>
+                    <button
+                        type='submit'
+                        className='button'
+                        onClick={(e) => {
+                            this.props.addUsername(e, this.name.value); 
+                        }}
+                    >Submit
+                    </button>
+                </form>
+                <Link className='button' to='/shop'>Go to the Store</Link>
             </div>
         )
     }

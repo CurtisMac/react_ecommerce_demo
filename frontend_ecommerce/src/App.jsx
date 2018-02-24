@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Switch, Link, Route } from 'react-router-dom';
-import Home from './components/home';
-import Shop from './components/shop';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import Header from './components/Header'
+import Home from './components/Home';
+import Shop from './components/Shop';
 
 class App extends Component {
   constructor() {
@@ -12,33 +12,40 @@ class App extends Component {
     }
   }
 
-  addUsername = (name) => {
-    this.setState({
-      username: name
-    })
-    if (typeof (Storage) !== "undefined") {
-      localStorage.setItem('username', name)
+  addUsername = (e, name) => {
+    e.preventDefault()
+    let username = name
+    if (name === '') {
+      return
     } else {
-      console.log('Sorry! No Web Storage support...')
+      this.setState({
+        username
+      })
+      if (typeof (Storage) !== "undefined") {
+        localStorage.setItem('username', name)
+      } else {
+        console.log('Sorry! No Web Storage support...')
+      }
     }
   }
 
-componentDidMount(){
-  this.setState({
-    username: localStorage.username
-  })
-}
+  componentDidMount() {
+    this.setState({
+      username: localStorage.username
+    })
+  }
 
   render() {
     return (
       <div>
-        <nav>
-          <Link to='/'>Home</Link>
-          <Link to='/shop'>Shop</Link>
-        </nav>
+        <Header username={this.state.username} />
         <Switch>
-          <Route exact path='/' render={(routeProps) => <Home addUsername={this.addUsername} {...routeProps}/>} />
-          <Route path='/shop' render={(routeProps) => <Shop username={this.state.username} {...routeProps} />} />
+          <Route 
+              exact path='/' 
+              render={(routeProps) => <Home addUsername={this.addUsername} {...routeProps} />} />
+          <Route 
+              path='/shop' 
+              render={(routeProps) => <Shop {...routeProps} />} />
         </Switch>
       </div>
     )
